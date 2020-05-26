@@ -1,16 +1,9 @@
-# test
-## 2 
-### 3
-#### 4
+# How to train YOLOv4 model with own dataset
 
-__1__ *2
-
-* 1
-    * 2
-
-![]()
-[link](https://github.com/YINGNANSU/test/edit/master/README.md)
-332112
-     dsadas
-     dsadas
-
+## Environment
+Ubuntu 18.04
+CUDA 10.0
+cuDNN 7.6.0
+Python 3.6
+OpenCV 4.2.0
+##Download the source code
