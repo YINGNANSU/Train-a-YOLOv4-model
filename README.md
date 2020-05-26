@@ -1,4 +1,4 @@
-# How to train YOLOv4 model with own dataset
+# How to train YOLOv4 model on own dataset
 
 ## Environment
  * Ubuntu 18.04
@@ -25,5 +25,6 @@
     
     make
     
-## Download pre-training weights
+## Download pre-trained weights file
+    [yolov4.conv.137] (https://drive.google.com/file/d/1JKF-bdIklxOOVy-2Cr5qdvjgGpmGfcbp/view/)
 
