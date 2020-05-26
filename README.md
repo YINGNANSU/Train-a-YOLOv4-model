@@ -61,8 +61,8 @@ Ubuntu Linux Python5 + Qt5
 
 ### Run voc_label.py can get below file
 
- * object_train.txt:Store all train_img paths
- * object_val.txt:Store all val_img paths
+ * object_train.txt -- Store all train_img paths
+ * object_val.txt -- Store all val_img paths
 
  ## Make [.names] [.data] and [.cfg] file
  
