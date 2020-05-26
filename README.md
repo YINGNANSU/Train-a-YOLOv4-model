@@ -66,3 +66,72 @@ Ubuntu Linux Python5 + Qt5
 
  ## Make [.names] [.data] and [.cfg] file
  
+ 
+ * .names file
+ 
+        vim train.names
+         
+         class1
+         class2
+         class3
+         class4
+         ...
+         
+    Put your class list in train.names, save and quit.
+ 
+ * .data file
+          
+          vim obj.data
+          
+          classes= [number of objects]
+          train = [obj_train.txt path]
+          valid = [obj_val.txt path]
+          names = [train.names path]
+          backup = backup/ #save weights files here
+     
+    Put your class number and path in obj.data, save and quit.
+
+ * .cfg file stored in darknet/cfg/yolov4-custom.cfg(copy yolov4-custom.cfg to your folder)
+ 
+   
+   * change line batch to batch=64
+   * change line subdivisions to subdivisions=16 (According to the GPU configuration, it can be adjusted to 32 or 64.)
+   * change line max_batches to (classes*2000 but not less than number of training images, and not less than 6000), f.e. max_batches=6000 if you train for 3 classes
+   * change line steps to 80% and 90% of max_batches, f.e. steps=4800,5400
+   * set network size width=416 height=416 or any value multiple of 32: https://github.com/AlexeyAB/darknet/blob/0039fd26786ab5f71d5af725fc18b3f521e7acfd/cfg/yolov3.cfg#L8-L9
+change line classes=80 to your number of objects in each of 3 [yolo]-layers:
+
+     * https://github.com/AlexeyAB/darknet/blob/0039fd26786ab5f71d5af725fc18b3f521e7acfd/cfg/yolov3.cfg#L610
+     * https://github.com/AlexeyAB/darknet/blob/0039fd26786ab5f71d5af725fc18b3f521e7acfd/cfg/yolov3.cfg#L696
+     * https://github.com/AlexeyAB/darknet/blob/0039fd26786ab5f71d5af725fc18b3f521e7acfd/cfg/yolov3.cfg#L783
+
+change [filters=255] to filters=(classes + 5)x3 in the 3 [convolutional] before each [yolo] layer, keep in mind that it only has to be the last [convolutional] before each of the [yolo] layers.
+
+     * https://github.com/AlexeyAB/darknet/blob/0039fd26786ab5f71d5af725fc18b3f521e7acfd/cfg/yolov3.cfg#L603
+     * https://github.com/AlexeyAB/darknet/blob/0039fd26786ab5f71d5af725fc18b3f521e7acfd/cfg/yolov3.cfg#L689
+     * https://github.com/AlexeyAB/darknet/blob/0039fd26786ab5f71d5af725fc18b3f521e7acfd/cfg/yolov3.cfg#L776
+
+   
+ 
+  ## Training
+ 
+    
+        sudo ./darknet detector train [obj.data path] [yolov4-custom.cfg path]  yolov4.conv.137 -map
+        
+  * train with multi-GPU
+
+        sudo ./darknet detector train [obj.data path] [yolov4-custom.cfg path]  yolov4.conv.137 -gpus 0,1,2 -map
+ 
+ ## Test
+   * Image test
+   
+         ./darknet detector test [obj.data path] [yolov4-custom.cfg path] [weights file path] [image path]
+       
+   * VIdeo test
+   
+          ./darknet detector demo [obj.data path] [yolov4-custom.cfg path] [weights file path] [video path]
+        
+      
+      If you want to save video test results
+        
+           ./darknet detector demo [obj.data path] [yolov4-custom.cfg path] [weights file path] [video path] -out_filename [Custom naming]
