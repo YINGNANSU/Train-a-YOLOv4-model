@@ -20,10 +20,10 @@
      CUDNN=1 
      CUDNN_HALF=1 
      OPENCV=1 
-     DEBUG=1 
+     AVX=1 
      OPENMP=1 
      LIBSO=1 
-     ZED_CAMERA=1 
+    
     
      make
     
